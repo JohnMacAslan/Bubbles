@@ -174,12 +174,52 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="glew"
+			>
+			<File
+				RelativePath=".\glew.c"
+				>
+			</File>
+			<File
+				RelativePath=".\glew.h"
+				>
+			</File>
+			<File
+				RelativePath=".\glxew.h"
+				>
+			</File>
+			<File
+				RelativePath=".\wglew.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Bubbles"
+			>
+			<File
+				RelativePath=".\bubble.h"
+				>
+			</File>
+			<Filter
+				Name="BubbleShaders"
+				>
+				<File
+					RelativePath=".\BubbleShaders\bubbleRender3dModel.frag"
+					>
+				</File>
+				<File
+					RelativePath=".\BubbleShaders\bubbleRender3dModel.vert"
+					>
+				</File>
+			</Filter>
+		</Filter>
 		<File
-			RelativePath=".\bubble.h"
+			RelativePath=".\display.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\display.cpp"
+			RelativePath=".\ShaderManager.h"
 			>
 		</File>
 	</Files>
