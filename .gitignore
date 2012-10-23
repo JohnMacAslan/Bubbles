@@ -4,6 +4,7 @@
 *.lo
 *.o
 
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -22,6 +23,8 @@
 *.suo
 *.user
 *.sln.docstates
+*.sln.old
+*.suo.old
 
 # Build results
 
