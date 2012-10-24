@@ -8,16 +8,25 @@
 #define PI_32ND M_PI/32
 
 struct Bubble {
-	double x,y,z;
-	Bubble(double, double, double);
+	sf::Clock Clock;
+	double x,y,z,xRate,yRate,zRate;
+	Bubble();
+	void setValues();
 	void draw();
 };
 
-Bubble::Bubble(double x, double y, double z)
+void Bubble::setValues(){
+	z = -75 - rand()%100;
+	x = (-z/2.0) - rand()%(-(int)z);
+	y = z;
+	xRate = 10+rand()%10;
+	yRate = 200/(-z);
+	zRate = 10+rand()%10;
+}
+
+Bubble::Bubble()
 {
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	setValues();
 }
 
 /* Draws a bubble
@@ -29,6 +38,11 @@ void Bubble::draw(){
 	double radiusAtHeight;
 	double radiusAtNextHeight;
 
+	y+=yRate;
+	if(y > -z) {
+		setValues();
+	}
+
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	{
@@ -36,8 +50,8 @@ void Bubble::draw(){
 			radiusAtHeight = sqrt(RADIUS*RADIUS - height*height);
 			radiusAtNextHeight = sqrt(RADIUS*RADIUS - (height + heightIncrement)*(height + heightIncrement));
 			for(i = 0.0; i < TWO_PI; i += PI_32ND) {
-				glVertex3d(x + radiusAtHeight * cos(i), y + radiusAtHeight * sin(i), height + z);
-				glVertex3d(x + radiusAtNextHeight * cos(i), y + radiusAtNextHeight * sin(i), (height + heightIncrement) + z);
+				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), y + radiusAtHeight * sin(i), height + z + sin(zRate*Clock.GetElapsedTime()));
+				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), y + radiusAtNextHeight * sin(i), (height + heightIncrement) + z + sin(zRate*Clock.GetElapsedTime()));
 			}
 		}
 	}

@@ -23,7 +23,8 @@ uniform vec2 lastFrameDragPos;  //where the cursor was on the previous frame whi
 uniform int mouseButtonDown;  //tracks if the mouse button is down
 
 varying vec3 normal;  //normal that will be interpolated for the fragment shader
-
+vec3 light = vec3(2,1,1);
+vec4 vertex;
 
 void main()
 {	

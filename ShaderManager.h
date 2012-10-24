@@ -92,6 +92,7 @@ private:
 			exit(1);
 		}
 		
+		HGLRC bill = wglGetCurrentContext();
 		GLhandleARB vertShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
 		GLhandleARB fragShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
 		char * vertSource[MAX_SHADERS];
