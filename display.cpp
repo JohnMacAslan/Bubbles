@@ -9,7 +9,7 @@
 #define BUBBLE_MODE 100
 #define RES_WIDTH 1024
 #define RES_HEIGHT 768
-#define NUM_BUBBLES 200
+#define NUM_BUBBLES 1000
 
 bool GL20Support;
 float lightRadius = 3;

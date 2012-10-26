@@ -44,6 +44,7 @@ void Bubble::draw(){
 	double radiusAtHeight;
 	double radiusAtNextHeight;
 	float xn,yn,zn;
+	float time = Clock.GetElapsedTime();
 
 	y+=yRate;
 	if(y > -z) {
@@ -57,15 +58,15 @@ void Bubble::draw(){
 			radiusAtHeight = sqrt(RADIUS*RADIUS - height*height);
 			radiusAtNextHeight = sqrt(RADIUS*RADIUS - (height + heightIncrement)*(height + heightIncrement));
 			for(i = 0.0; i < TWO_PI; i += PI_16TH) {
-				xn = cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i);
+				xn = cos(xRate*time) + radiusAtHeight * cos(i);
 				yn = radiusAtHeight * sin(i);
-				zn = height + sin(zRate*Clock.GetElapsedTime());
+				zn = height + sin(zRate*time);
 				glNormal3f(xn, yn, zn);
 				glVertex3d(x + xn, y + yn, z + zn);
 
-				xn = cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i);
+				xn = cos(xRate*time) + radiusAtNextHeight * cos(i);
 				yn = radiusAtNextHeight * sin(i);
-				zn = (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime());
+				zn = (height + heightIncrement) + sin(zRate*time);
 				glNormal3f(xn, yn, zn);
 				glVertex3d(x + xn, y + yn, z + zn);
 			}
