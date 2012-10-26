@@ -32,6 +32,8 @@ void gfxinit()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(50, ((double) RES_WIDTH) / ((double) RES_HEIGHT), 1.0, 200.0);

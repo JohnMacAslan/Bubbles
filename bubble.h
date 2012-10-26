@@ -5,7 +5,7 @@
 
 #define RADIUS 5
 #define TWO_PI 2*M_PI
-#define PI_32ND M_PI/32
+#define PI_16TH M_PI/16
 
 struct Bubble {
 	sf::Clock Clock;
@@ -22,6 +22,12 @@ void Bubble::setValues(){
 	xRate = 10+rand()%10;
 	yRate = 200/(-z);
 	zRate = 10+rand()%10;
+	//z=-50;
+	//x=0;
+	//y=0;
+	//xRate=0;
+	//yRate=0;
+	//zRate=0;
 }
 
 Bubble::Bubble()
@@ -49,9 +55,11 @@ void Bubble::draw(){
 		for(height = -RADIUS; height < RADIUS; height += heightIncrement) {
 			radiusAtHeight = sqrt(RADIUS*RADIUS - height*height);
 			radiusAtNextHeight = sqrt(RADIUS*RADIUS - (height + heightIncrement)*(height + heightIncrement));
-			for(i = 0.0; i < TWO_PI; i += PI_32ND) {
-				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), y + radiusAtHeight * sin(i), height + z + sin(zRate*Clock.GetElapsedTime()));
-				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), y + radiusAtNextHeight * sin(i), (height + heightIncrement) + z + sin(zRate*Clock.GetElapsedTime()));
+			for(i = 0.0; i < TWO_PI; i += PI_16TH) {
+				glNormal3f(cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), radiusAtHeight * sin(i), height + sin(zRate*Clock.GetElapsedTime()));
+				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), y + radiusAtHeight * sin(i), z + height + sin(zRate*Clock.GetElapsedTime()));
+				glNormal3f(cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), radiusAtNextHeight * sin(i), (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime()));
+				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), y + radiusAtNextHeight * sin(i), z + (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime()));
 			}
 		}
 	}

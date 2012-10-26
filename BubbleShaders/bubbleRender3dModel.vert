@@ -23,12 +23,18 @@ uniform vec2 lastFrameDragPos;  //where the cursor was on the previous frame whi
 uniform int mouseButtonDown;  //tracks if the mouse button is down
 
 varying vec3 normal;  //normal that will be interpolated for the fragment shader
-vec3 light = vec3(2,1,1);
-vec4 vertex;
+varying vec3 light;
+varying vec4 vertex;
+varying vec3 view;
+
+vec3 lightLoc = vec3(0,250,-250);
+vec3 cameraLoc = vec3(0,0,5);
 
 void main()
 {	
-	vec4 vertex = projMatrix * viewMatrix * gl_Vertex;  //use the uploaded matrix data
+	light = lightLoc - gl_Vertex.xyz;
+	vertex = projMatrix * viewMatrix * gl_Vertex;  //use the uploaded matrix data
+	view = cameraLoc - gl_Vertex.xyz;
 	gl_Position = vertex;  //output the transformed vertex
 	normal = gl_Normal;
 }

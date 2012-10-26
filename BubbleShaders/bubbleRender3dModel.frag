@@ -20,10 +20,20 @@ uniform vec2 lastFrameDragPos;  //where the cursor was on the previous frame whi
 uniform int mouseButtonDown;  //tracks if the mouse button is down
 
 varying vec3 normal;  //normal that will be interpolated for the fragment shader
-vec3 light;
+varying vec4 vertex;
+varying vec3 light;
+varying vec3 view;
+vec4 color;
 
 void main()
 {
-	vec3 lightPos = light;
-	gl_FragColor = vec4(0.9, 0.9, 1.0, 1.0);
+	vec3 n = normalize(normal);
+	vec3 l = normalize(light);
+	vec3 v = normalize(view);
+	vec3 r = normalize(2.0*dot(l, n)*n-l);
+	color = vec4(0.6, 0.8, 0.9, 0.5);
+	float ambient = 0.3;
+	float diffuse = 1.5*dot(l,n);
+	float specular = pow(dot(r, v),20);
+	gl_FragColor = color * (ambient + diffuse + specular);
 }
