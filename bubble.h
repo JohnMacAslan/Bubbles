@@ -43,6 +43,7 @@ void Bubble::draw(){
 	double heightIncrement = RADIUS / 16.0;
 	double radiusAtHeight;
 	double radiusAtNextHeight;
+	float xn,yn,zn;
 
 	y+=yRate;
 	if(y > -z) {
@@ -56,10 +57,17 @@ void Bubble::draw(){
 			radiusAtHeight = sqrt(RADIUS*RADIUS - height*height);
 			radiusAtNextHeight = sqrt(RADIUS*RADIUS - (height + heightIncrement)*(height + heightIncrement));
 			for(i = 0.0; i < TWO_PI; i += PI_16TH) {
-				glNormal3f(cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), radiusAtHeight * sin(i), height + sin(zRate*Clock.GetElapsedTime()));
-				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i), y + radiusAtHeight * sin(i), z + height + sin(zRate*Clock.GetElapsedTime()));
-				glNormal3f(cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), radiusAtNextHeight * sin(i), (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime()));
-				glVertex3d(x + cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i), y + radiusAtNextHeight * sin(i), z + (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime()));
+				xn = cos(xRate*Clock.GetElapsedTime()) + radiusAtHeight * cos(i);
+				yn = radiusAtHeight * sin(i);
+				zn = height + sin(zRate*Clock.GetElapsedTime());
+				glNormal3f(xn, yn, zn);
+				glVertex3d(x + xn, y + yn, z + zn);
+
+				xn = cos(xRate*Clock.GetElapsedTime()) + radiusAtNextHeight * cos(i);
+				yn = radiusAtNextHeight * sin(i);
+				zn = (height + heightIncrement) + sin(zRate*Clock.GetElapsedTime());
+				glNormal3f(xn, yn, zn);
+				glVertex3d(x + xn, y + yn, z + zn);
 			}
 		}
 	}
